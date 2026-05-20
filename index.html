@@ -108,7 +108,7 @@
   }
   .hero-tag span { width: 6px; height: 6px; border-radius: 50%; background: var(--c1); animation: pulse 1.5s infinite; display: inline-block; }
 
-  @background: pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:.5; transform:scale(.8); } }
+  @keyframes pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:.5; transform:scale(.8); } }
 
   .hero-title {
     font-family: 'Syne', sans-serif;
@@ -516,7 +516,6 @@
 </head>
 <body>
 
-<!-- MOBILE NAV -->
 <div class="mobile-nav" id="mobileNav">
   <a href="#about" onclick="closeMobileNav()">About</a>
   <a href="#skills" onclick="closeMobileNav()">Skills</a>
@@ -526,7 +525,6 @@
   <a href="#" onclick="openCvModal(event)">Download CV</a>
 </div>
 
-<!-- NAV -->
 <nav id="navbar">
   <a href="#" class="nav-logo">MSA.</a>
   <ul class="nav-links">
@@ -545,7 +543,6 @@
   </button>
 </nav>
 
-<!-- HERO -->
 <section class="hero" id="home">
   <div class="hero-orb orb1"></div>
   <div class="hero-orb orb2"></div>
@@ -569,7 +566,7 @@
   <div class="hero-photo-wrap fade-up visible">
     <div class="hero-photo-ring">
       <div class="hero-photo-inner">
-        <img src="portfolio_jpg.png.png" alt="Md Swopon Ali" />
+        <img src="photo.png" alt="Md Swopon Ali" />
       </div>
     </div>
     <div class="floating-badge b1">
@@ -592,12 +589,11 @@
   </div>
 </section>
 
-<!-- ABOUT -->
 <section id="about">
   <div class="about-grid">
     <div class="about-photo-col fade-up">
       <div class="about-frame">
-        <img src="portfolio_jpg.png.png" alt="Md Swopon Ali" />
+        <img src="photo.png" alt="Md Swopon Ali" />
       </div>
       <div class="about-accent-box">
         <span class="big-num">2+</span>
@@ -631,7 +627,6 @@
   </div>
 </section>
 
-<!-- SKILLS -->
 <section id="skills">
   <div class="section-header fade-up">
     <div class="section-tag tag-blue">My Expertise</div>
@@ -719,7 +714,6 @@
   </div>
 </section>
 
-<!-- WORKS (BOOK FLIP) -->
 <section id="works">
   <div class="section-header fade-up">
     <div class="section-tag tag-purple">Portfolio Book</div>
@@ -732,8 +726,7 @@
     <div class="book" id="bookEl">
       <div class="book-spine"></div>
       <div class="book-page" id="bookPage">
-        <!-- Filled by JS -->
-      </div>
+        </div>
     </div>
   </div>
 
@@ -748,7 +741,6 @@
   </div>
 </section>
 
-<!-- PROJECTS -->
 <section id="projects">
   <div class="section-header fade-up">
     <div class="section-tag tag-green">All Projects</div>
@@ -758,11 +750,9 @@
   </div>
 
   <div class="projects-grid" id="projectsGrid">
-    <!-- Filled by JS -->
-  </div>
+    </div>
 </section>
 
-<!-- SOCIAL / CONNECT -->
 <section id="social">
   <div class="section-header fade-up">
     <div class="section-tag tag-amber">Let's Connect</div>
@@ -810,13 +800,11 @@
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-name">Md Swopon Ali</div>
   <p>Built with <span class="footer-heart">♥</span> — © <span id="yr"></span> All rights reserved.</p>
 </footer>
 
-<!-- CV MODAL -->
 <div class="cv-modal" id="cvModal">
   <div class="cv-box">
     <button class="cv-close" onclick="closeCvModal()"><i class="fa-solid fa-xmark"></i></button>
@@ -844,7 +832,6 @@
   </div>
 </div>
 
-<!-- VIDEO MODAL -->
 <div class="video-modal" id="videoModal">
   <div class="modal-inner">
     <button class="modal-close" onclick="closeVideoModal()"><i class="fa-solid fa-xmark"></i></button>
