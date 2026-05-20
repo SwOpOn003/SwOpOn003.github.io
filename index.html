@@ -1,1111 +1,340 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Md Swopon Ali — Portfolio</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-<style>
-  :root {
-    --c1: #FF3CAC;
-    --c2: #784BA0;
-    --c3: #2B86C5;
-    --c4: #00F5A0;
-    --c5: #F7971E;
-    --dark: #0a0a0f;
-    --dark2: #12121a;
-    --dark3: #1a1a28;
-    --card: #16162200;
-    --border: rgba(255,255,255,0.08);
-    --text: #f0f0f8;
-    --muted: rgba(240,240,248,0.55);
-    --grad1: linear-gradient(135deg, #FF3CAC, #784BA0, #2B86C5);
-    --grad2: linear-gradient(135deg, #00F5A0, #2B86C5);
-    --grad3: linear-gradient(135deg, #F7971E, #FF3CAC);
-  }
-
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--dark);
-    color: var(--text);
-    overflow-x: hidden;
-  }
-
-  /* NOISE OVERLAY */
-  body::before {
-    content: '';
-    position: fixed; inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none; z-index: 0; opacity: .5;
-  }
-
-  /* SCROLLBAR */
-  ::-webkit-scrollbar { width: 4px; }
-  ::-webkit-scrollbar-track { background: var(--dark); }
-  ::-webkit-scrollbar-thumb { background: var(--c1); border-radius: 2px; }
-
-  /* ===== NAV ===== */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 1rem 5%;
-    background: rgba(10,10,15,0.85);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border);
-    transition: padding .3s;
-  }
-  nav.scrolled { padding: .7rem 5%; }
-
-  .nav-logo {
-    font-family: 'Syne', sans-serif;
-    font-size: 1.4rem; font-weight: 800;
-    background: var(--grad1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    text-decoration: none;
-  }
-
-  .nav-links { display: flex; gap: 2rem; list-style: none; }
-  .nav-links a { color: var(--muted); text-decoration: none; font-size: .9rem; font-weight: 500; letter-spacing: .05em; transition: color .2s; position: relative; }
-  .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--c1); transition: width .3s; }
-  .nav-links a:hover { color: var(--text); }
-  .nav-links a:hover::after { width: 100%; }
-
-  .cv-btn {
-    padding: .5rem 1.3rem; border-radius: 50px;
-    background: transparent; border: 1.5px solid var(--c1);
-    color: var(--c1); font-family: 'DM Sans', sans-serif; font-weight: 500; font-size: .85rem;
-    transition: all .3s; letter-spacing: .05em;
-    text-decoration: none; display: flex; align-items: center; gap: .4rem;
-  }
-  .cv-btn:hover { background: var(--c1); color: #fff; box-shadow: 0 0 20px rgba(255,60,172,.4); }
-
-  .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; padding: 4px; cursor: pointer; }
-  .hamburger span { width: 24px; height: 2px; background: var(--text); transition: all .3s; display: block; }
-
-  /* ===== HERO ===== */
-  .hero {
-    min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr;
-    align-items: center; gap: 4rem; padding: 7rem 5% 4rem;
-    position: relative; overflow: hidden;
-  }
-
-  .hero-orb { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; }
-  .orb1 { width: 500px; height: 500px; background: rgba(255,60,172,.15); top: -100px; right: -100px; }
-  .orb2 { width: 400px; height: 400px; background: rgba(43,134,197,.12); bottom: -50px; left: -100px; }
-  .orb3 { width: 300px; height: 300px; background: rgba(0,245,160,.08); top: 40%; left: 30%; }
-
-  .hero-text { position: relative; z-index: 1; }
-  .hero-tag {
-    display: inline-flex; align-items: center; gap: .5rem;
-    padding: .35rem 1rem; border-radius: 50px;
-    background: rgba(255,60,172,.12); border: 1px solid rgba(255,60,172,.3);
-    color: var(--c1); font-size: .8rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase;
-    margin-bottom: 1.5rem;
-  }
-  .hero-tag span { width: 6px; height: 6px; border-radius: 50%; background: var(--c1); animation: pulse 1.5s infinite; display: inline-block; }
-
-  @keyframes pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:.5; transform:scale(.8); } }
-
-  .hero-title {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(2.8rem, 5vw, 4.5rem); font-weight: 800; line-height: 1.05;
-    margin-bottom: 1.5rem;
-  }
-  .hero-title .grad { background: var(--grad1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-
-  .hero-desc { color: var(--muted); font-size: 1.05rem; line-height: 1.8; max-width: 480px; margin-bottom: 2.5rem; }
-
-  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
-  .btn-primary {
-    padding: .8rem 2rem; border-radius: 50px;
-    background: var(--grad1); border: none; color: #fff;
-    font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: .95rem;
-    transition: all .3s; text-decoration: none;
-    box-shadow: 0 4px 30px rgba(255,60,172,.35);
-  }
-  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 40px rgba(255,60,172,.5); }
-
-  .btn-secondary {
-    padding: .8rem 2rem; border-radius: 50px;
-    background: transparent; border: 1.5px solid var(--border);
-    color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 500; font-size: .95rem;
-    transition: all .3s; text-decoration: none;
-    display: flex; align-items: center; gap: .5rem;
-  }
-  .btn-secondary:hover { border-color: rgba(255,255,255,.3); background: rgba(255,255,255,.05); transform: translateY(-3px); }
-
-  /* PHOTO */
-  .hero-photo-wrap { position: relative; z-index: 1; display: flex; justify-content: center; align-items: center; }
-  .hero-photo-ring {
-    width: 380px; height: 380px; border-radius: 50%;
-    padding: 4px;
-    background: var(--grad1);
-    position: relative;
-    animation: rotateRing 8s linear infinite;
-  }
-  @keyframes rotateRing { from { filter: hue-rotate(0deg); } to { filter: hue-rotate(360deg); } }
-
-  .hero-photo-inner {
-    width: 100%; height: 100%; border-radius: 50%;
-    overflow: hidden; background: var(--dark3);
-    border: 4px solid var(--dark);
-    display: flex; align-items: center; justify-content: center;
-  }
-  .hero-photo-inner img { width: 100%; height: 100%; object-fit: cover; }
-  .hero-photo-inner .photo-placeholder {
-    font-size: 7rem; opacity: .3;
-  }
-
-  .floating-badge {
-    position: absolute;
-    background: rgba(22,22,34,.95); border: 1px solid var(--border);
-    backdrop-filter: blur(10px); border-radius: 16px;
-    padding: .6rem 1rem; display: flex; align-items: center; gap: .5rem;
-    font-size: .8rem; font-weight: 500; white-space: nowrap;
-    animation: float 3s ease-in-out infinite;
-  }
-  .floating-badge.b1 { top: 5%; right: -5%; animation-delay: 0s; }
-  .floating-badge.b2 { bottom: 10%; left: -5%; animation-delay: 1s; }
-  .floating-badge.b3 { top: 45%; right: -15%; animation-delay: .5s; }
-  .floating-badge .dot { width: 8px; height: 8px; border-radius: 50%; }
-
-  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-
-  /* SCROLL INDICATOR */
-  .scroll-hint {
-    position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
-    display: flex; flex-direction: column; align-items: center; gap: .4rem;
-    color: var(--muted); font-size: .75rem; letter-spacing: .1em;
-    animation: bounce 2s ease-in-out infinite;
-  }
-  .scroll-hint i { font-size: 1.2rem; }
-  @keyframes bounce { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(6px); } }
-
-  /* ===== SECTIONS ===== */
-  section { padding: 6rem 5%; position: relative; }
-  .section-header { text-align: center; margin-bottom: 4rem; }
-  .section-tag {
-    display: inline-block; padding: .3rem .9rem; border-radius: 50px;
-    font-size: .75rem; font-weight: 600; letter-spacing: .15em; text-transform: uppercase;
-    margin-bottom: 1rem;
-  }
-  .tag-pink { background: rgba(255,60,172,.12); color: var(--c1); border: 1px solid rgba(255,60,172,.25); }
-  .tag-blue { background: rgba(43,134,197,.12); color: #5eb8ff; border: 1px solid rgba(43,134,197,.25); }
-  .tag-green { background: rgba(0,245,160,.1); color: var(--c4); border: 1px solid rgba(0,245,160,.2); }
-  .tag-amber { background: rgba(247,151,30,.1); color: var(--c5); border: 1px solid rgba(247,151,30,.2); }
-  .tag-purple { background: rgba(120,75,160,.15); color: #b87fff; border: 1px solid rgba(120,75,160,.3); }
-
-  .section-title {
-    font-family: 'Syne', sans-serif; font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 700; line-height: 1.2;
-  }
-  .section-title .accent { background: var(--grad1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-  .section-sub { color: var(--muted); font-size: 1rem; margin-top: .7rem; max-width: 500px; margin-left: auto; margin-right: auto; }
-
-  /* DIVIDER */
-  .divider { width: 60px; height: 3px; background: var(--grad1); border-radius: 2px; margin: 1.2rem auto 0; }
-
-  /* ===== ABOUT ===== */
-  #about { background: var(--dark2); }
-  .about-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 5rem; align-items: center; }
-
-  .about-photo-col { position: relative; }
-  .about-frame {
-    border-radius: 24px; overflow: hidden;
-    aspect-ratio: 3/4; max-width: 360px;
-    background: var(--dark3);
-    border: 1px solid var(--border);
-    position: relative;
-  }
-  .about-frame img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
-  .about-frame .placeholder-icon { font-size: 8rem; display: flex; align-items: center; justify-content: center; height: 100%; opacity: .2; }
-  .about-frame::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,10,15,.7) 0%, transparent 50%); }
-  .about-accent-box {
-    position: absolute; bottom: -2rem; right: -2rem;
-    background: var(--grad1); border-radius: 16px; padding: 1.5rem;
-    text-align: center; min-width: 110px;
-  }
-  .about-accent-box .big-num { font-family: 'Syne', sans-serif; font-size: 2.2rem; font-weight: 800; color: #fff; display: block; }
-  .about-accent-box .small-label { font-size: .75rem; color: rgba(255,255,255,.8); }
-
-  .about-content h3 { font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 700; margin-bottom: 1.2rem; }
-  .about-content p { color: var(--muted); line-height: 1.9; margin-bottom: 1rem; font-size: .98rem; }
-  .about-stats { display: flex; gap: 2.5rem; margin: 2rem 0; }
-  .stat-item { text-align: center; }
-  .stat-num { font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; background: var(--grad1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; display: block; }
-  .stat-label { font-size: .8rem; color: var(--muted); }
-
-  /* ===== SKILLS ===== */
-  #skills { background: var(--dark); }
-  .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
-
-  .skill-category {
-    background: var(--dark2); border: 1px solid var(--border); border-radius: 20px; padding: 1.8rem;
-    transition: all .3s; position: relative; overflow: hidden;
-  }
-  .skill-category::before { content: ''; position: absolute; inset: 0; opacity: 0; transition: opacity .3s; border-radius: 20px; }
-  .skill-category.cat-pink::before { background: radial-gradient(circle at top left, rgba(255,60,172,.08), transparent 70%); }
-  .skill-category.cat-blue::before { background: radial-gradient(circle at top left, rgba(43,134,197,.08), transparent 70%); }
-  .skill-category.cat-green::before { background: radial-gradient(circle at top left, rgba(0,245,160,.06), transparent 70%); }
-  .skill-category.cat-amber::before { background: radial-gradient(circle at top left, rgba(247,151,30,.08), transparent 70%); }
-  .skill-category:hover { border-color: rgba(255,255,255,.18); transform: translateY(-4px); }
-  .skill-category:hover::before { opacity: 1; }
-
-  .cat-icon { font-size: 1.8rem; margin-bottom: 1rem; display: block; }
-  .cat-title { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 1.2rem; }
-
-  .skill-bars { display: flex; flex-direction: column; gap: .9rem; }
-  .skill-bar-item { }
-  .skill-bar-top { display: flex; justify-content: space-between; margin-bottom: .4rem; font-size: .82rem; color: var(--muted); }
-  .skill-bar-track { height: 6px; background: rgba(255,255,255,.06); border-radius: 3px; overflow: hidden; }
-  .skill-bar-fill { height: 100%; border-radius: 3px; transform: scaleX(0); transform-origin: left; transition: transform 1s cubic-bezier(.4,0,.2,1); }
-  .fill-pink { background: linear-gradient(90deg, var(--c1), var(--c2)); }
-  .fill-blue { background: linear-gradient(90deg, var(--c3), #5eb8ff); }
-  .fill-green { background: linear-gradient(90deg, var(--c4), #00c9a7); }
-  .fill-amber { background: linear-gradient(90deg, var(--c5), #ffcd3c); }
-
-  /* ===== BOOK / WORKS ===== */
-  #works { background: var(--dark2); }
-  .book-scene { display: flex; justify-content: center; align-items: center; perspective: 1500px; margin-bottom: 3rem; min-height: 400px; }
-
-  .book {
-    width: 580px; height: 380px; position: relative;
-    transform-style: preserve-3d;
-  }
-
-  .book-page {
-    position: absolute; width: 100%; height: 100%;
-    backface-visibility: hidden; border-radius: 4px 16px 16px 4px;
-    background: var(--dark3); border: 1px solid var(--border);
-    padding: 2.5rem; display: flex; flex-direction: column; justify-content: space-between;
-    transition: all .5s;
-  }
-  .book-page.back { transform: rotateY(180deg); }
-  .book-spine {
-    position: absolute; left: 0; top: 0; bottom: 0; width: 24px;
-    background: var(--grad1); border-radius: 16px 4px 4px 16px;
-    z-index: 10;
-  }
-  .page-content { padding-left: 1.5rem; }
-  .page-num { font-size: .75rem; color: var(--muted); letter-spacing: .1em; margin-bottom: .5rem; }
-  .page-chapter { font-family: 'Syne', sans-serif; font-size: .8rem; font-weight: 600; color: var(--c1); letter-spacing: .12em; text-transform: uppercase; margin-bottom: .8rem; }
-  .page-title { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 700; margin-bottom: .8rem; line-height: 1.3; }
-  .page-body { color: var(--muted); font-size: .88rem; line-height: 1.7; flex: 1; }
-  .page-tags { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: 1rem; }
-  .page-tag { padding: .2rem .65rem; border-radius: 50px; font-size: .72rem; font-weight: 500; background: rgba(255,255,255,.06); border: 1px solid var(--border); color: var(--muted); }
-  .page-links { display: flex; gap: .8rem; margin-top: 1rem; }
-  .page-link-btn {
-    padding: .4rem 1rem; border-radius: 50px; font-size: .8rem; font-weight: 600;
-    text-decoration: none; transition: all .3s;
-    display: flex; align-items: center; gap: .35rem;
-    cursor: pointer;
-  }
-  .pl-github { background: rgba(255,255,255,.08); border: 1px solid var(--border); color: var(--text); }
-  .pl-github:hover { background: rgba(255,255,255,.15); }
-  .pl-live { background: var(--grad2); color: #0a0a0f; border: none; }
-  .pl-live:hover { box-shadow: 0 0 20px rgba(0,245,160,.3); }
-  .pl-video { background: rgba(255,60,172,.15); border: 1px solid rgba(255,60,172,.3); color: var(--c1); }
-  .pl-video:hover { background: rgba(255,60,172,.25); }
-
-  /* book flip controls */
-  .book-controls { display: flex; align-items: center; justify-content: center; gap: 1.5rem; }
-  .book-nav {
-    width: 46px; height: 46px; border-radius: 50%;
-    background: var(--dark2); border: 1px solid var(--border);
-    color: var(--text); font-size: 1.1rem;
-    display: flex; align-items: center; justify-content: center;
-    transition: all .3s;
-    cursor: pointer;
-  }
-  .book-nav:hover { background: rgba(255,60,172,.15); border-color: var(--c1); color: var(--c1); }
-  .book-nav:disabled { opacity: .3; cursor: default; }
-  .book-page-indicator { font-size: .85rem; color: var(--muted); min-width: 80px; text-align: center; }
-
-  .book-flip-enter { animation: flipIn .5s ease forwards; }
-  .book-flip-exit { animation: flipOut .5s ease forwards; }
-  @keyframes flipIn { from { transform: rotateY(-15deg) translateX(30px); opacity: 0; } to { transform: rotateY(0) translateX(0); opacity: 1; } }
-  @keyframes flipOut { from { transform: rotateY(0) translateX(0); opacity: 1; } to { transform: rotateY(15deg) translateX(-30px); opacity: 0; } }
-
-  /* ===== PROJECTS ===== */
-  #projects { background: var(--dark); }
-  .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
-
-  .project-card {
-    background: var(--dark2); border: 1px solid var(--border); border-radius: 20px;
-    overflow: hidden; transition: all .3s; group: true;
-  }
-  .project-card:hover { border-color: rgba(255,255,255,.18); transform: translateY(-5px); box-shadow: 0 20px 60px rgba(0,0,0,.4); }
-
-  .project-thumb {
-    height: 180px; background: var(--dark3); position: relative; overflow: hidden;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .project-thumb .thumb-icon { font-size: 3.5rem; opacity: .2; }
-  .project-thumb .project-overlay {
-    position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,60,172,.15), rgba(43,134,197,.15));
-    opacity: 0; transition: opacity .3s;
-  }
-  .project-card:hover .project-overlay { opacity: 1; }
-  .project-thumb video, .project-thumb iframe { width: 100%; height: 100%; object-fit: cover; }
-
-  .project-body { padding: 1.5rem; }
-  .project-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: .7rem; }
-  .project-cat { font-size: .72rem; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; color: var(--c1); }
-  .project-year { font-size: .75rem; color: var(--muted); }
-  .project-name { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; margin-bottom: .5rem; }
-  .project-desc { color: var(--muted); font-size: .85rem; line-height: 1.6; margin-bottom: 1rem; }
-  .project-footer { display: flex; gap: .6rem; flex-wrap: wrap; }
-  .p-btn {
-    padding: .35rem .85rem; border-radius: 50px; font-size: .78rem; font-weight: 500;
-    text-decoration: none; transition: all .25s;
-    display: inline-flex; align-items: center; gap: .3rem;
-    cursor: pointer;
-  }
-  .p-gh { background: rgba(255,255,255,.07); border: 1px solid var(--border); color: var(--muted); }
-  .p-gh:hover { color: var(--text); background: rgba(255,255,255,.12); }
-  .p-live { background: rgba(0,245,160,.1); border: 1px solid rgba(0,245,160,.2); color: var(--c4); }
-  .p-live:hover { background: rgba(0,245,160,.18); }
-  .p-vid { background: rgba(255,60,172,.1); border: 1px solid rgba(255,60,172,.2); color: var(--c1); }
-  .p-vid:hover { background: rgba(255,60,172,.18); }
-
-  /* VIDEO MODAL */
-  .video-modal {
-    position: fixed; inset: 0; z-index: 9000;
-    background: rgba(0,0,0,.92); display: none;
-    align-items: center; justify-content: center;
-    backdrop-filter: blur(8px);
-  }
-  .video-modal.active { display: flex; }
-  .modal-inner { position: relative; width: 90vw; max-width: 800px; }
-  .modal-close {
-    position: absolute; top: -2.5rem; right: 0;
-    background: none; border: none; color: var(--muted); font-size: 1.5rem;
-    transition: color .2s;
-    cursor: pointer;
-  }
-  .modal-close:hover { color: var(--text); }
-  .modal-inner iframe { width: 100%; aspect-ratio: 16/9; border-radius: 12px; border: 1px solid var(--border); }
-
-  /* ===== SOCIAL ===== */
-  #social { background: var(--dark2); }
-  .social-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.2rem; max-width: 900px; margin: 0 auto; }
-
-  .social-card {
-    border-radius: 20px; padding: 1.8rem; text-align: center;
-    text-decoration: none; display: flex; flex-direction: column; align-items: center; gap: .8rem;
-    border: 1px solid var(--border); background: var(--dark3);
-    transition: all .3s; position: relative; overflow: hidden;
-  }
-  .social-card::before { content: ''; position: absolute; inset: 0; opacity: 0; transition: opacity .3s; }
-  .social-card:hover { transform: translateY(-5px) scale(1.02); }
-  .social-card.sc-github::before { background: radial-gradient(circle, rgba(255,255,255,.06), transparent 70%); }
-  .social-card.sc-github:hover { border-color: rgba(255,255,255,.3); }
-  .social-card.sc-linkedin::before { background: radial-gradient(circle, rgba(0,119,181,.15), transparent 70%); }
-  .social-card.sc-linkedin:hover { border-color: rgba(0,119,181,.5); }
-  .social-card.sc-twitter::before { background: radial-gradient(circle, rgba(29,155,240,.12), transparent 70%); }
-  .social-card.sc-twitter:hover { border-color: rgba(29,155,240,.4); }
-  .social-card.sc-fb::before { background: radial-gradient(circle, rgba(24,119,242,.12), transparent 70%); }
-  .social-card.sc-fb:hover { border-color: rgba(24,119,242,.4); }
-  .social-card.sc-ig::before { background: radial-gradient(circle, rgba(255,60,172,.1), transparent 70%); }
-  .social-card.sc-ig:hover { border-color: rgba(255,60,172,.4); }
-  .social-card.sc-yt::before { background: radial-gradient(circle, rgba(255,0,0,.1), transparent 70%); }
-  .social-card.sc-yt:hover { border-color: rgba(255,0,0,.35); }
-  .social-card.sc-email::before { background: radial-gradient(circle, rgba(0,245,160,.08), transparent 70%); }
-  .social-card.sc-email:hover { border-color: rgba(0,245,160,.35); }
-
-  .social-card:hover::before { opacity: 1; }
-  .social-card i { font-size: 2rem; }
-  .sc-github i { color: #f0f0f8; }
-  .sc-linkedin i { color: #0077b5; }
-  .sc-twitter i { color: #1d9bf0; }
-  .sc-fb i { color: #1877f2; }
-  .sc-ig i { color: var(--c1); }
-  .sc-yt i { color: #ff0000; }
-  .sc-email i { color: var(--c4); }
-
-  .social-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: .9rem; }
-  .social-handle { font-size: .78rem; color: var(--muted); }
-
-  /* ===== CV MODAL ===== */
-  .cv-modal {
-    position: fixed; inset: 0; z-index: 9100;
-    background: rgba(0,0,0,.9); display: none;
-    align-items: center; justify-content: center;
-    backdrop-filter: blur(12px);
-  }
-  .cv-modal.active { display: flex; }
-  .cv-box {
-    background: var(--dark2); border: 1px solid var(--border); border-radius: 24px;
-    padding: 2.5rem; max-width: 480px; width: 90%; text-align: center;
-    position: relative; animation: popIn .3s cubic-bezier(.34,1.56,.64,1) forwards;
-  }
-  @keyframes popIn { from { transform: scale(.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-  .cv-close { position: absolute; top: 1rem; right: 1.2rem; background: none; border: none; color: var(--muted); font-size: 1.3rem; cursor: pointer; }
-  .cv-icon { font-size: 3.5rem; margin-bottom: 1rem; }
-  .cv-box h3 { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 700; margin-bottom: .6rem; }
-  .cv-box p { color: var(--muted); font-size: .9rem; line-height: 1.7; margin-bottom: 1.8rem; }
-  .cv-form { display: flex; flex-direction: column; gap: .8rem; text-align: left; }
-  .cv-form label { font-size: .8rem; color: var(--muted); font-weight: 500; }
-  .cv-form input, .cv-form textarea {
-    background: var(--dark3); border: 1px solid var(--border); border-radius: 10px;
-    color: var(--text); font-family: 'DM Sans', sans-serif; font-size: .9rem;
-    padding: .7rem 1rem; outline: none; width: 100%;
-    transition: border-color .2s; resize: vertical;
-  }
-  .cv-form input:focus, .cv-form textarea:focus { border-color: var(--c1); }
-  .cv-submit {
-    padding: .8rem; border-radius: 50px; border: none;
-    background: var(--grad1); color: #fff; font-family: 'DM Sans', sans-serif;
-    font-weight: 600; font-size: .95rem; transition: all .3s;
-    margin-top: .4rem;
-    cursor: pointer;
-  }
-  .cv-submit:hover { box-shadow: 0 0 30px rgba(255,60,172,.4); transform: translateY(-2px); }
-  .cv-success { display: none; }
-  .cv-success.show { display: block; animation: fadeIn .4s ease; }
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-  /* ===== FOOTER ===== */
-  footer {
-    padding: 3rem 5%; background: var(--dark3); border-top: 1px solid var(--border);
-    text-align: center; position: relative;
-  }
-  footer .footer-name { font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 800; background: var(--grad1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: .5rem; }
-  footer p { color: var(--muted); font-size: .85rem; }
-  footer .footer-heart { color: var(--c1); }
-
-  /* ===== MOBILE NAV ===== */
-  .mobile-nav {
-    position: fixed; inset: 0; z-index: 999;
-    background: rgba(10,10,15,.97); backdrop-filter: blur(20px);
-    display: none; flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem;
-  }
-  .mobile-nav.open { display: flex; }
-  .mobile-nav a { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 700; color: var(--text); text-decoration: none; transition: color .2s; }
-  .mobile-nav a:hover { color: var(--c1); }
-
-  /* ANIMATIONS ON SCROLL */
-  .fade-up { opacity: 0; transform: translateY(30px); transition: opacity .6s ease, transform .6s ease; }
-  .fade-up.visible { opacity: 1; transform: translateY(0); }
-
-  /* ===== RESPONSIVE ===== */
-  @media (max-width: 900px) {
-    .hero { grid-template-columns: 1fr; text-align: center; padding-top: 8rem; gap: 2rem; }
-    .hero-text { order: 2; }
-    .hero-photo-wrap { order: 1; }
-    .hero-desc { margin: 0 auto 2rem; }
-    .hero-btns { justify-content: center; }
-    .hero-photo-ring { width: 260px; height: 260px; }
-    .floating-badge.b1 { top: 0; right: 0; }
-    .floating-badge.b2 { bottom: 0; left: 0; }
-    .floating-badge.b3 { display: none; }
-    .about-grid { grid-template-columns: 1fr; }
-    .about-photo-col { display: flex; justify-content: center; }
-    .nav-links { display: none; }
-    .hamburger { display: flex; }
-    .book { width: 90vw; max-width: 580px; }
-  }
-  @media (max-width: 600px) {
-    .about-stats { gap: 1.5rem; }
-    .cv-btn span { display: none; }
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Md Swopon Ali — Portfolio</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<div class="mobile-nav" id="mobileNav">
-  <a href="#about" onclick="closeMobileNav()">About</a>
-  <a href="#skills" onclick="closeMobileNav()">Skills</a>
-  <a href="#works" onclick="closeMobileNav()">Works</a>
-  <a href="#projects" onclick="closeMobileNav()">Projects</a>
-  <a href="#social" onclick="closeMobileNav()">Connect</a>
-  <a href="#" onclick="openCvModal(event)">Download CV</a>
-</div>
-
-<nav id="navbar">
-  <a href="#" class="nav-logo">MSA.</a>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#works">Works</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#social">Connect</a></li>
-  </ul>
-  <a href="#" class="cv-btn" onclick="openCvModal(event)">
-    <i class="fa-solid fa-file-arrow-down"></i>
-    <span>Download CV</span>
-  </a>
-  <button class="hamburger" id="hamburger" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
-
-<section class="hero" id="home">
-  <div class="hero-orb orb1"></div>
-  <div class="hero-orb orb2"></div>
-  <div class="hero-orb orb3"></div>
-
-  <div class="hero-text fade-up visible">
-    <div class="hero-tag"><span></span> Available for Work</div>
-    <h1 class="hero-title">
-      Hi, I'm<br>
-      <span class="grad">Md Swopon Ali</span>
-    </h1>
-    <p class="hero-desc">
-      A passionate developer &amp; creative thinker. I build beautiful digital experiences that blend clean code with vibrant design. Let's create something amazing together.
-    </p>
-    <div class="hero-btns">
-      <a href="#projects" class="btn-primary">View My Work</a>
-      <a href="#social" class="btn-secondary"><i class="fa-solid fa-paper-plane"></i> Get In Touch</a>
-    </div>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#about" onclick="closeMobileNav()">About</a>
+    <a href="#skills" onclick="closeMobileNav()">Skills</a>
+    <a href="#works" onclick="closeMobileNav()">Works</a>
+    <a href="#projects" onclick="closeMobileNav()">Projects</a>
+    <a href="#social" onclick="closeMobileNav()">Connect</a>
+    <a href="#" onclick="openCvModal(event)">Download CV</a>
   </div>
 
-  <div class="hero-photo-wrap fade-up visible">
-    <div class="hero-photo-ring">
-      <div class="hero-photo-inner">
-        <img src="photo.png" alt="Md Swopon Ali" />
-      </div>
-    </div>
-    <div class="floating-badge b1">
-      <div class="dot" style="background:#00F5A0"></div>
-      Open to opportunities
-    </div>
-    <div class="floating-badge b2">
-      <i class="fa-solid fa-star" style="color:#F7971E;font-size:.85rem"></i>
-      10+ Projects Built
-    </div>
-    <div class="floating-badge b3">
-      <i class="fa-solid fa-code" style="color:#FF3CAC;font-size:.85rem"></i>
-      2+ Years Experience
-    </div>
-  </div>
-
-  <div class="scroll-hint">
-    <span>Scroll</span>
-    <i class="fa-solid fa-chevron-down"></i>
-  </div>
-</section>
-
-<section id="about">
-  <div class="about-grid">
-    <div class="about-photo-col fade-up">
-      <div class="about-frame">
-        <img src="photo.png" alt="Md Swopon Ali" />
-      </div>
-      <div class="about-accent-box">
-        <span class="big-num">2+</span>
-        <span class="small-label">Years of<br>Experience</span>
-      </div>
-    </div>
-    <div class="about-content fade-up">
-      <div class="section-tag tag-pink">About Me</div>
-      <h3>Turning Ideas Into<br>Digital Reality</h3>
-      <p>
-        Hello! I'm Md Swopon Ali, a dedicated developer with a passion for building modern, responsive, and visually stunning web applications. I love solving complex problems with elegant solutions.
-      </p>
-      <p>
-        When I'm not coding, you'll find me exploring new technologies, contributing to open-source projects, or sharing knowledge with the developer community. I believe great products are built at the intersection of technology and creativity.
-      </p>
-      <div class="about-stats">
-        <div class="stat-item">
-          <span class="stat-num">10+</span>
-          <span class="stat-label">Projects</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-num">5+</span>
-          <span class="stat-label">Technologies</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-num">100%</span>
-          <span class="stat-label">Dedication</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="skills">
-  <div class="section-header fade-up">
-    <div class="section-tag tag-blue">My Expertise</div>
-    <h2 class="section-title">Skills &amp; <span class="accent">Technologies</span></h2>
-    <div class="divider"></div>
-    <p class="section-sub">Technologies and tools I work with to bring ideas to life.</p>
-  </div>
-
-  <div class="skills-grid">
-    <div class="skill-category cat-pink fade-up">
-      <span class="cat-icon">🎨</span>
-      <div class="cat-title">Frontend Development</div>
-      <div class="skill-bars">
-        <div class="skill-bar-item">
-          <div class="skill-bar-top"><span>HTML / CSS</span><span>90%</span></div>
-          <div class="skill-bar-track"><div class="skill-bar-fill fill-pink" data-w="90"></div></div>
-        </div>
-        <div class="skill-bar-item">
-          <div class="skill-bar-top"><span>JavaScript</span><span>80%</span></div>
-          <div class="skill-bar-track"><div class="skill-bar-fill fill-pink" data-w="80"></div></div>
-        </div>
-        <div class="skill-bar-item">
-          <div class="skill-bar-top"><span>React</span><span>75%</span></div>
-          <div class="skill-bar-track"><div class="skill-bar-fill fill-pink" data-w="75"></div></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="skill-category cat-blue fade-up">
-      <span class="cat-icon">⚙️</span>
-      <div class="cat-title">Backend Development</div>
-      <div class="skill-bars">
-        <div class="skill-bar-item">
-          <div class="skill-bar-top"><span>Node.js</span><span>70%</span></div>
-          <div class="skill-bar-track"><div class="skill-bar-fill fill-blue" data-w="70"></div></div>
-        </div>
-        <div class="skill-bar-item">
-          <div class="skill-bar-top"><span>Python</span><span>65%</span></div>
-          <div class="skill-bar-track"><div class="skill-bar-fill fill-blue" data-w="65"></div></div>
-        </div>
-        <div class="skill-bar-item">
-          <div class="skill-bar-top"><span>REST APIs</span><span>75%</span></div>
-          <div class="skill-bar-track"><div class="skill-bar-fill fill-blue" data-w="75"></div></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="skill-category cat-green fade-up">
-      <span class="cat-icon">🗄️</span>
-      <div class="cat-title">Database &amp; DevOps</div>
-      <div class="skill-bars">
-        <div class="skill-bar-item">
-          <div class="skill-bar-top"><span>MySQL</span><span>72%</span></div>
-          <div class="skill-bar-track"><div class="skill-bar-fill fill-green" data-w="72"></div></div>
-        </div>
-        <div class="skill-bar-item">
-          <div class="skill-bar-top"><span>MongoDB</span><span>65%</span></div>
-          <div class="skill-bar-track"><div class="skill-bar-fill fill-green" data-w="65"></div></div>
-        </div>
-        <div class="skill-bar-item">
-          <div class="skill-bar-top"><span>Git / GitHub</span><span>85%</span></div>
-          <div class="skill-bar-track"><div class="skill-bar-fill fill-green" data-w="85"></div></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="skill-category cat-amber fade-up">
-      <span class="cat-icon">🛠️</span>
-      <div class="cat-title">Tools &amp; Others</div>
-      <div class="skill-bars">
-        <div class="skill-bar-item">
-          <div class="skill-bar-top"><span>VS Code</span><span>90%</span></div>
-          <div class="skill-bar-track"><div class="skill-bar-fill fill-amber" data-w="90"></div></div>
-        </div>
-        <div class="skill-bar-item">
-          <div class="skill-bar-top"><span>Figma</span><span>60%</span></div>
-          <div class="skill-bar-track"><div class="skill-bar-fill fill-amber" data-w="60"></div></div>
-        </div>
-        <div class="skill-bar-item">
-          <div class="skill-bar-top"><span>Linux</span><span>68%</span></div>
-          <div class="skill-bar-track"><div class="skill-bar-fill fill-amber" data-w="68"></div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="works">
-  <div class="section-header fade-up">
-    <div class="section-tag tag-purple">Portfolio Book</div>
-    <h2 class="section-title">My <span class="accent">Featured Works</span></h2>
-    <div class="divider"></div>
-    <p class="section-sub">Flip through my work like a book — each page is a featured project.</p>
-  </div>
-
-  <div class="book-scene fade-up">
-    <div class="book" id="bookEl">
-      <div class="book-spine"></div>
-      <div class="book-page" id="bookPage">
-        </div>
-    </div>
-  </div>
-
-  <div class="book-controls fade-up">
-    <button class="book-nav" id="bookPrev" onclick="bookNav(-1)" disabled>
-      <i class="fa-solid fa-chevron-left"></i>
+  <nav id="navbar">
+    <a href="#" class="nav-logo">MSA.</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#works">Works</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#social">Connect</a></li>
+    </ul>
+    <a href="#" class="cv-btn" onclick="openCvModal(event)">
+      <i class="fa-solid fa-file-arrow-down"></i>
+      <span>Download CV</span>
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
     </button>
-    <span class="book-page-indicator" id="bookIndicator">Page 1 of 4</span>
-    <button class="book-nav" id="bookNext" onclick="bookNav(1)">
-      <i class="fa-solid fa-chevron-right"></i>
-    </button>
-  </div>
-</section>
+  </nav>
 
-<section id="projects">
-  <div class="section-header fade-up">
-    <div class="section-tag tag-green">All Projects</div>
-    <h2 class="section-title">Project <span class="accent">Showcase</span></h2>
-    <div class="divider"></div>
-    <p class="section-sub">All projects with live links, GitHub repos, and demo videos.</p>
-  </div>
+  <section class="hero" id="home">
+    <div class="hero-orb orb1"></div>
+    <div class="hero-orb orb2"></div>
+    <div class="hero-orb orb3"></div>
 
-  <div class="projects-grid" id="projectsGrid">
-    </div>
-</section>
-
-<section id="social">
-  <div class="section-header fade-up">
-    <div class="section-tag tag-amber">Let's Connect</div>
-    <h2 class="section-title">Find Me <span class="accent">Everywhere</span></h2>
-    <div class="divider"></div>
-    <p class="section-sub">Reach out through any platform — I'd love to hear from you.</p>
-  </div>
-
-  <div class="social-grid fade-up">
-    <a href="https://github.com/YOUR_USERNAME" target="_blank" class="social-card sc-github">
-      <i class="fa-brands fa-github"></i>
-      <span class="social-name">GitHub</span>
-      <span class="social-handle">@YOUR_USERNAME</span>
-    </a>
-    <a href="https://linkedin.com/in/YOUR_PROFILE" target="_blank" class="social-card sc-linkedin">
-      <i class="fa-brands fa-linkedin"></i>
-      <span class="social-name">LinkedIn</span>
-      <span class="social-handle">Md Swopon Ali</span>
-    </a>
-    <a href="https://twitter.com/YOUR_HANDLE" target="_blank" class="social-card sc-twitter">
-      <i class="fa-brands fa-x-twitter"></i>
-      <span class="social-name">X / Twitter</span>
-      <span class="social-handle">@YOUR_HANDLE</span>
-    </a>
-    <a href="https://facebook.com/YOUR_PROFILE" target="_blank" class="social-card sc-fb">
-      <i class="fa-brands fa-facebook"></i>
-      <span class="social-name">Facebook</span>
-      <span class="social-handle">Md Swopon Ali</span>
-    </a>
-    <a href="https://instagram.com/YOUR_HANDLE" target="_blank" class="social-card sc-ig">
-      <i class="fa-brands fa-instagram"></i>
-      <span class="social-name">Instagram</span>
-      <span class="social-handle">@YOUR_HANDLE</span>
-    </a>
-    <a href="https://youtube.com/@YOUR_CHANNEL" target="_blank" class="social-card sc-yt">
-      <i class="fa-brands fa-youtube"></i>
-      <span class="social-name">YouTube</span>
-      <span class="social-handle">@YOUR_CHANNEL</span>
-    </a>
-    <a href="mailto:youremail@gmail.com" class="social-card sc-email">
-      <i class="fa-solid fa-envelope"></i>
-      <span class="social-name">Email</span>
-      <span class="social-handle">youremail@gmail.com</span>
-    </a>
-  </div>
-</section>
-
-<footer>
-  <div class="footer-name">Md Swopon Ali</div>
-  <p>Built with <span class="footer-heart">♥</span> — © <span id="yr"></span> All rights reserved.</p>
-</footer>
-
-<div class="cv-modal" id="cvModal">
-  <div class="cv-box">
-    <button class="cv-close" onclick="closeCvModal()"><i class="fa-solid fa-xmark"></i></button>
-    <div id="cvFormWrap">
-      <div class="cv-icon">📄</div>
-      <h3>Request My CV</h3>
-      <p>Please fill in your details and I'll send you my CV directly. This helps me know who's reaching out!</p>
-      <div class="cv-form">
-        <label>Your Name</label>
-        <input type="text" id="cvName" placeholder="e.g. John Smith" />
-        <label>Your Email</label>
-        <input type="email" id="cvEmail" placeholder="yourname@company.com" />
-        <label>Company / Purpose</label>
-        <input type="text" id="cvCompany" placeholder="e.g. ABC Corp — Hiring for Dev role" />
-        <button class="cv-submit" onclick="submitCvRequest()">
-          <i class="fa-solid fa-paper-plane"></i> Send Request
-        </button>
+    <div class="hero-text fade-up visible">
+      <div class="hero-tag"><span></span> Available for Work</div>
+      <h1 class="hero-title">
+        Hi, I'm<br>
+        <span class="grad">Md Swopon Ali</span>
+      </h1>
+      <p class="hero-desc">
+        A passionate developer &amp; creative thinker. I build beautiful digital experiences that blend clean code with vibrant design. Let's create something amazing together.
+      </p>
+      <div class="hero-btns">
+        <a href="#projects" class="btn-primary">View My Work</a>
+        <a href="#social" class="btn-secondary"><i class="fa-solid fa-paper-plane"></i> Get In Touch</a>
       </div>
     </div>
-    <div class="cv-success" id="cvSuccess">
-      <div class="cv-icon">✅</div>
-      <h3>Request Sent!</h3>
-      <p>Thank you! I've received your request and will get back to you shortly with my CV. Talk soon!</p>
-    </div>
-  </div>
-</div>
 
-<div class="video-modal" id="videoModal">
-  <div class="modal-inner">
-    <button class="modal-close" onclick="closeVideoModal()"><i class="fa-solid fa-xmark"></i></button>
-    <iframe id="videoFrame" src="" allowfullscreen title="Project Demo"></iframe>
-  </div>
-</div>
-
-<script>
-// ============================================================
-// DATA
-// ============================================================
-const bookPages = [
-  {
-    chapter: "Featured Work 01",
-    title: "Project Alpha",
-    desc: "A full-stack web application with user authentication, real-time database, and a responsive dashboard. Built with React and Node.js.",
-    tags: ["React", "Node.js", "MongoDB", "Tailwind"],
-    githubUrl: "https://github.com/YOUR_USERNAME/project-alpha",
-    liveUrl: "https://your-live-site.com",
-    videoUrl: "https://www.youtube.com/embed/YOUR_VIDEO_ID"
-  },
-  {
-    chapter: "Featured Work 02",
-    title: "Project Beta",
-    desc: "An e-commerce platform with product listing, cart, payment integration, and admin panel. Focused on performance and UX.",
-    tags: ["Next.js", "Stripe", "PostgreSQL", "Docker"],
-    githubUrl: "https://github.com/YOUR_USERNAME/project-beta",
-    liveUrl: "https://your-live-site.com",
-    videoUrl: ""
-  },
-  {
-    chapter: "Featured Work 03",
-    title: "Project Gamma",
-    desc: "A mobile-first social app with real-time chat, notifications, and media uploads. RESTful API backend with JWT auth.",
-    tags: ["React Native", "Express", "Socket.io", "AWS S3"],
-    githubUrl: "https://github.com/YOUR_USERNAME/project-gamma",
-    liveUrl: "",
-    videoUrl: "https://www.youtube.com/embed/YOUR_VIDEO_ID"
-  },
-  {
-    chapter: "Featured Work 04",
-    title: "Project Delta",
-    desc: "A data visualization dashboard pulling live API data and rendering interactive charts. Built for analytics teams.",
-    tags: ["Vue.js", "D3.js", "Python", "FastAPI"],
-    githubUrl: "https://github.com/YOUR_USERNAME/project-delta",
-    liveUrl: "https://your-live-site.com",
-    videoUrl: ""
-  }
-];
-
-const allProjects = [
-  {
-    name: "Project Alpha",
-    category: "Full Stack",
-    year: "2024",
-    desc: "Full-stack app with React + Node.js + MongoDB. User auth, dashboard, REST API.",
-    icon: "💻",
-    github: "https://github.com/YOUR_USERNAME/project-alpha",
-    live: "https://your-live-site.com",
-    video: "https://www.youtube.com/embed/YOUR_VIDEO_ID"
-  },
-  {
-    name: "Project Beta",
-    category: "E-Commerce",
-    year: "2024",
-    desc: "E-commerce platform with cart, Stripe payments, and admin panel.",
-    icon: "🛒",
-    github: "https://github.com/YOUR_USERNAME/project-beta",
-    live: "https://your-live-site.com",
-    video: ""
-  },
-  {
-    name: "Project Gamma",
-    category: "Mobile App",
-    year: "2023",
-    desc: "Social app with real-time chat, media uploads, and push notifications.",
-    icon: "📱",
-    github: "https://github.com/YOUR_USERNAME/project-gamma",
-    live: "",
-    video: "https://www.youtube.com/embed/YOUR_VIDEO_ID"
-  },
-  {
-    name: "Project Delta",
-    category: "Data Viz",
-    year: "2023",
-    desc: "Interactive analytics dashboard with D3.js and live data APIs.",
-    icon: "📊",
-    github: "https://github.com/YOUR_USERNAME/project-delta",
-    live: "https://your-live-site.com",
-    video: ""
-  },
-  {
-    name: "Project Epsilon",
-    category: "Tool / CLI",
-    year: "2023",
-    desc: "Developer productivity CLI tool with automation scripts and config management.",
-    icon: "🔧",
-    github: "https://github.com/YOUR_USERNAME/project-epsilon",
-    live: "",
-    video: ""
-  },
-  {
-    name: "Project Zeta",
-    category: "UI / Design",
-    year: "2022",
-    desc: "A Figma-to-code design system with reusable components and theming.",
-    icon: "🎨",
-    github: "https://github.com/YOUR_USERNAME/project-zeta",
-    live: "https://your-live-site.com",
-    video: ""
-  }
-];
-
-const CV_EMAIL = "youremail@gmail.com";
-
-// ============================================================
-// BOOK FLIP LOGIC
-// ============================================================
-let currentPage = 0;
-
-function renderBookPage(idx, dir) {
-  const page = bookPages[idx];
-  const el = document.getElementById('bookPage');
-
-  el.classList.remove('book-flip-enter', 'book-flip-exit');
-  void el.offsetWidth;
-  el.classList.add('book-flip-enter');
-
-  el.innerHTML = `
-    <div class="page-content">
-      <div class="page-num">Page ${idx + 1} / ${bookPages.length}</div>
-      <div class="page-chapter">${page.chapter}</div>
-      <h2 class="page-title">${page.title}</h2>
-      <p class="page-body">${page.desc}</p>
-      <div class="page-tags">${page.tags.map(t=>`<span class="page-tag">${t}</span>`).join('')}</div>
-      <div class="page-links">
-        ${page.githubUrl ? `<a href="${page.githubUrl}" target="_blank" class="page-link-btn pl-github"><i class="fa-brands fa-github"></i> GitHub</a>` : ''}
-        ${page.liveUrl ? `<a href="${page.liveUrl}" target="_blank" class="page-link-btn pl-live"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live Site</a>` : ''}
-        ${page.videoUrl ? `<button class="page-link-btn pl-video" onclick="openVideo('${page.videoUrl}')"><i class="fa-solid fa-play"></i> Watch Demo</button>` : ''}
-      </div>
-    </div>
-  `;
-
-  document.getElementById('bookIndicator').textContent = `Page ${idx + 1} of ${bookPages.length}`;
-  document.getElementById('bookPrev').disabled = idx === 0;
-  document.getElementById('bookNext').disabled = idx === bookPages.length - 1;
-}
-
-function bookNav(dir) {
-  currentPage = Math.max(0, Math.min(bookPages.length - 1, currentPage + dir));
-  renderBookPage(currentPage, dir);
-}
-
-renderBookPage(0);
-
-// ============================================================
-// PROJECTS GRID
-// ============================================================
-const grid = document.getElementById('projectsGrid');
-allProjects.forEach(p => {
-  grid.innerHTML += `
-    <div class="project-card fade-up">
-      <div class="project-thumb">
-        <div class="thumb-icon">${p.icon}</div>
-        <div class="project-overlay"></div>
-      </div>
-      <div class="project-body">
-        <div class="project-meta">
-          <span class="project-cat">${p.category}</span>
-          <span class="project-year">${p.year}</span>
+    <div class="hero-photo-wrap fade-up visible">
+      <div class="hero-photo-ring">
+        <div class="hero-photo-inner">
+          <img src="photo.png" alt="Md Swopon Ali" />
         </div>
-        <div class="project-name">${p.name}</div>
-        <p class="project-desc">${p.desc}</p>
-        <div class="project-footer">
-          ${p.github ? `<a href="${p.github}" target="_blank" class="p-btn p-gh"><i class="fa-brands fa-github"></i> GitHub</a>` : ''}
-          ${p.live ? `<a href="${p.live}" target="_blank" class="p-btn p-live"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live</a>` : ''}
-          ${p.video ? `<button class="p-btn p-vid" onclick="openVideo('${p.video}')"><i class="fa-solid fa-play"></i> Demo</button>` : ''}
+      </div>
+      <div class="floating-badge b1">
+        <div class="dot" style="background:#00F5A0"></div>
+        Open to opportunities
+      </div>
+      <div class="floating-badge b2">
+        <i class="fa-solid fa-star" style="color:#F7971E;font-size:.85rem"></i>
+        10+ Projects Built
+      </div>
+      <div class="floating-badge b3">
+        <i class="fa-solid fa-code" style="color:#FF3CAC;font-size:.85rem"></i>
+        2+ Years Experience
+      </div>
+    </div>
+
+    <div class="scroll-hint">
+      <span>Scroll</span>
+      <i class="fa-solid fa-chevron-down"></i>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="about-grid">
+      <div class="about-photo-col fade-up">
+        <div class="about-frame">
+          <img src="photo.png" alt="Md Swopon Ali" />
+        </div>
+        <div class="about-accent-box">
+          <span class="big-num">2+</span>
+          <span class="small-label">Years of<br>Experience</span>
+        </div>
+      </div>
+      <div class="about-content fade-up">
+        <div class="section-tag tag-pink">About Me</div>
+        <h3>Turning Ideas Into<br>Digital Reality</h3>
+        <p>
+          Hello! I'm Md Swopon Ali, a dedicated developer with a passion for building modern, responsive, and visually stunning web applications. I love solving complex problems with elegant solutions.
+        </p>
+        <p>
+          When I'm not coding, you'll find me exploring new technologies, contributing to open-source projects, or sharing knowledge with the developer community. I believe great products are built at the intersection of technology and creativity.
+        </p>
+        <div class="about-stats">
+          <div class="stat-item">
+            <span class="stat-num">10+</span>
+            <span class="stat-label">Projects</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num">5+</span>
+            <span class="stat-label">Technologies</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num">100%</span>
+            <span class="stat-label">Dedication</span>
+          </div>
         </div>
       </div>
     </div>
-  `;
-});
+  </section>
 
-// ============================================================
-// VIDEO MODAL
-// ============================================================
-function openVideo(url) {
-  document.getElementById('videoFrame').src = url;
-  document.getElementById('videoModal').classList.add('active');
-}
-function closeVideoModal() {
-  document.getElementById('videoFrame').src = '';
-  document.getElementById('videoModal').classList.remove('active');
-}
-document.getElementById('videoModal').addEventListener('click', function(e) {
-  if (e.target === this) closeVideoModal();
-});
+  <section id="skills">
+    <div class="section-header fade-up">
+      <div class="section-tag tag-blue">My Expertise</div>
+      <h2 class="section-title">Skills &amp; <span class="accent">Technologies</span></h2>
+      <div class="divider"></div>
+      <p class="section-sub">Technologies and tools I work with to bring ideas to life.</p>
+    </div>
 
-// ============================================================
-// CV MODAL
-// ============================================================
-function openCvModal(e) {
-  if (e) e.preventDefault();
-  document.getElementById('cvModal').classList.add('active');
-}
-function closeCvModal() {
-  document.getElementById('cvModal').classList.remove('active');
-  setTimeout(() => {
-    document.getElementById('cvSuccess').classList.remove('show');
-    document.getElementById('cvFormWrap').style.display = 'block';
-  }, 400);
-}
-function submitCvRequest() {
-  const name = document.getElementById('cvName').value.trim();
-  const email = document.getElementById('cvEmail').value.trim();
-  const company = document.getElementById('cvCompany').value.trim();
-  if (!name || !email) { alert('Please fill in your name and email.'); return; }
+    <div class="skills-grid">
+      <div class="skill-category cat-pink fade-up">
+        <span class="cat-icon">🎨</span>
+        <div class="cat-title">Frontend Development</div>
+        <div class="skill-bars">
+          <div class="skill-bar-item">
+            <div class="skill-bar-top"><span>HTML / CSS</span><span>90%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill fill-pink" data-w="90"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-top"><span>JavaScript</span><span>80%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill fill-pink" data-w="80"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-top"><span>React</span><span>75%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill fill-pink" data-w="75"></div></div>
+          </div>
+        </div>
+      </div>
 
-  const subject = encodeURIComponent(`CV Request from ${name}`);
-  const body = encodeURIComponent(`Hello Md Swopon Ali,\n\nMy name is ${name}.\nEmail: ${email}\nCompany/Purpose: ${company}\n\nI would like to request a copy of your CV.\n\nThank you.`);
-  window.location.href = `mailto:${CV_EMAIL}?subject=${subject}&body=${body}`;
+      <div class="skill-category cat-blue fade-up">
+        <span class="cat-icon">⚙️</span>
+        <div class="cat-title">Backend Development</div>
+        <div class="skill-bars">
+          <div class="skill-bar-item">
+            <div class="skill-bar-top"><span>Node.js</span><span>70%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill fill-blue" data-w="70"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-top"><span>Python</span><span>65%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill fill-blue" data-w="65"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-top"><span>REST APIs</span><span>75%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill fill-blue" data-w="75"></div></div>
+          </div>
+        </div>
+      </div>
 
-  document.getElementById('cvFormWrap').style.display = 'none';
-  document.getElementById('cvSuccess').classList.add('show');
-}
-document.getElementById('cvModal').addEventListener('click', function(e) {
-  if (e.target === this) closeCvModal();
-});
+      <div class="skill-category cat-green fade-up">
+        <span class="cat-icon">🗄️</span>
+        <div class="cat-title">Database &amp; DevOps</div>
+        <div class="skill-bars">
+          <div class="skill-bar-item">
+            <div class="skill-bar-top"><span>MySQL</span><span>72%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill fill-green" data-w="72"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-top"><span>MongoDB</span><span>65%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill fill-green" data-w="65"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-top"><span>Git / GitHub</span><span>85%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill fill-green" data-w="85"></div></div>
+          </div>
+        </div>
+      </div>
 
-// ============================================================
-// NAV SCROLL
-// ============================================================
-window.addEventListener('scroll', () => {
-  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
-});
+      <div class="skill-category cat-amber fade-up">
+        <span class="cat-icon">🛠️</span>
+        <div class="cat-title">Tools &amp; Others</div>
+        <div class="skill-bars">
+          <div class="skill-bar-item">
+            <div class="skill-bar-top"><span>VS Code</span><span>90%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill fill-amber" data-w="90"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-top"><span>Figma</span><span>60%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill fill-amber" data-w="60"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-top"><span>Linux</span><span>68%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill fill-amber" data-w="68"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-// ============================================================
-// HAMBURGER
-// ============================================================
-document.getElementById('hamburger').addEventListener('click', () => {
-  document.getElementById('mobileNav').classList.toggle('open');
-});
-function closeMobileNav() {
-  document.getElementById('mobileNav').classList.remove('open');
-}
+  <section id="works">
+    <div class="section-header fade-up">
+      <div class="section-tag tag-purple">Portfolio Book</div>
+      <h2 class="section-title">My <span class="accent">Featured Works</span></h2>
+      <div class="divider"></div>
+      <p class="section-sub">Flip through my work like a book — each page is a featured project.</p>
+    </div>
 
-// ============================================================
-// SCROLL ANIMATIONS
-// ============================================================
-const observer = new IntersectionObserver(entries => {
-  entries.forEach((entry, i) => {
-    if (entry.isIntersecting) {
-      setTimeout(() => entry.target.classList.add('visible'), i * 80);
-    }
-  });
-}, { threshold: 0.1 });
+    <div class="book-scene fade-up">
+      <div class="book" id="bookEl">
+        <div class="book-spine"></div>
+        <div class="book-page" id="bookPage">
+          </div>
+      </div>
+    </div>
 
-document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+    <div class="book-controls fade-up">
+      <button class="book-nav" id="bookPrev" onclick="bookNav(-1)" disabled>
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+      <span class="book-page-indicator" id="bookIndicator">Page 1 of 4</span>
+      <button class="book-nav" id="bookNext" onclick="bookNav(1)">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+    </div>
+  </section>
 
-const barObserver = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.querySelectorAll('.skill-bar-fill').forEach(bar => {
-        bar.style.transform = `scaleX(${parseInt(bar.dataset.w) / 100})`;
-      });
-    }
-  });
-}, { threshold: 0.3 });
-document.querySelectorAll('.skill-category').forEach(el => barObserver.observe(el));
+  <section id="projects">
+    <div class="section-header fade-up">
+      <div class="section-tag tag-green">All Projects</div>
+      <h2 class="section-title">Project <span class="accent">Showcase</span></h2>
+      <div class="divider"></div>
+      <p class="section-sub">All projects with live links, GitHub repos, and demo videos.</p>
+    </div>
 
-// ============================================================
-// FOOTER YEAR
-// ============================================================
-document.getElementById('yr').textContent = new Date().getFullYear();
-</script>
+    <div class="projects-grid" id="projectsGrid">
+      </div>
+  </section>
+
+  <section id="social">
+    <div class="section-header fade-up">
+      <div class="section-tag tag-amber">Let's Connect</div>
+      <h2 class="section-title">Find Me <span class="accent">Everywhere</span></h2>
+      <div class="divider"></div>
+      <p class="section-sub">Reach out through any platform — I'd love to hear from you.</p>
+    </div>
+
+    <div class="social-grid fade-up">
+      <a href="https://github.com/YOUR_USERNAME" target="_blank" class="social-card sc-github">
+        <i class="fa-brands fa-github"></i>
+        <span class="social-name">GitHub</span>
+        <span class="social-handle">@YOUR_USERNAME</span>
+      </a>
+      <a href="https://linkedin.com/in/YOUR_PROFILE" target="_blank" class="social-card sc-linkedin">
+        <i class="fa-brands fa-linkedin"></i>
+        <span class="social-name">LinkedIn</span>
+        <span class="social-handle">Md Swopon Ali</span>
+      </a>
+      <a href="https://twitter.com/YOUR_HANDLE" target="_blank" class="social-card sc-twitter">
+        <i class="fa-brands fa-x-twitter"></i>
+        <span class="social-name">X / Twitter</span>
+        <span class="social-handle">@YOUR_HANDLE</span>
+      </a>
+      <a href="https://facebook.com/YOUR_PROFILE" target="_blank" class="social-card sc-fb">
+        <i class="fa-brands fa-facebook"></i>
+        <span class="social-name">Facebook</span>
+        <span class="social-handle">Md Swopon Ali</span>
+      </a>
+      <a href="https://instagram.com/YOUR_HANDLE" target="_blank" class="social-card sc-ig">
+        <i class="fa-brands fa-instagram"></i>
+        <span class="social-name">Instagram</span>
+        <span class="social-handle">@YOUR_HANDLE</span>
+      </a>
+      <a href="https://youtube.com/@YOUR_CHANNEL" target="_blank" class="social-card sc-yt">
+        <i class="fa-brands fa-youtube"></i>
+        <span class="social-name">YouTube</span>
+        <span class="social-handle">@YOUR_CHANNEL</span>
+      </a>
+      <a href="mailto:youremail@gmail.com" class="social-card sc-email">
+        <i class="fa-solid fa-envelope"></i>
+        <span class="social-name">Email</span>
+        <span class="social-handle">youremail@gmail.com</span>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-name">Md Swopon Ali</div>
+    <p>Built with <span class="footer-heart">♥</span> — © <span id="yr"></span> All rights reserved.</p>
+  </footer>
+
+  <div class="cv-modal" id="cvModal">
+    <div class="cv-box">
+      <button class="cv-close" onclick="closeCvModal()"><i class="fa-solid fa-xmark"></i></button>
+      <div id="cvFormWrap">
+        <div class="cv-icon">📄</div>
+        <h3>Request My CV</h3>
+        <p>Please fill in your details and I'll send you my CV directly. This helps me know who's reaching out!</p>
+        <div class="cv-form">
+          <label>Your Name</label>
+          <input type="text" id="cvName" placeholder="e.g. John Smith" />
+          <label>Your Email</label>
+          <input type="email" id="cvEmail" placeholder="yourname@company.com" />
+          <label>Company / Purpose</label>
+          <input type="text" id="cvCompany" placeholder="e.g. ABC Corp — Hiring for Dev role" />
+          <button class="cv-submit" onclick="submitCvRequest()">
+            <i class="fa-solid fa-paper-plane"></i> Send Request
+          </button>
+        </div>
+      </div>
+      <div class="cv-success" id="cvSuccess">
+        <div class="cv-icon">✅</div>
+        <h3>Request Sent!</h3>
+        <p>Thank you! I've received your request and will get back to you shortly with my CV. Talk soon!</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-modal" id="videoModal">
+    <div class="modal-inner">
+      <button class="modal-close" onclick="closeVideoModal()"><i class="fa-solid fa-xmark"></i></button>
+      <iframe id="videoFrame" src="" allowfullscreen title="Project Demo"></iframe>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
