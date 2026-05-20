@@ -34,12 +34,7 @@
     background: var(--dark);
     color: var(--text);
     overflow-x: hidden;
-    cursor: none;
   }
-
-  /* CUSTOM CURSOR */
-  .cursor { position: fixed; width: 12px; height: 12px; background: var(--c1); border-radius: 50%; pointer-events: none; z-index: 99999; transform: translate(-50%,-50%); transition: transform .15s, background .3s; mix-blend-mode: difference; }
-  .cursor-ring { position: fixed; width: 36px; height: 36px; border: 1.5px solid var(--c1); border-radius: 50%; pointer-events: none; z-index: 99998; transform: translate(-50%,-50%); transition: all .25s ease; mix-blend-mode: difference; }
 
   /* NOISE OVERLAY */
   body::before {
@@ -83,12 +78,12 @@
     padding: .5rem 1.3rem; border-radius: 50px;
     background: transparent; border: 1.5px solid var(--c1);
     color: var(--c1); font-family: 'DM Sans', sans-serif; font-weight: 500; font-size: .85rem;
-    cursor: none; transition: all .3s; letter-spacing: .05em;
+    transition: all .3s; letter-spacing: .05em;
     text-decoration: none; display: flex; align-items: center; gap: .4rem;
   }
   .cv-btn:hover { background: var(--c1); color: #fff; box-shadow: 0 0 20px rgba(255,60,172,.4); }
 
-  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: none; background: none; border: none; padding: 4px; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; padding: 4px; cursor: pointer; }
   .hamburger span { width: 24px; height: 2px; background: var(--text); transition: all .3s; display: block; }
 
   /* ===== HERO ===== */
@@ -113,7 +108,7 @@
   }
   .hero-tag span { width: 6px; height: 6px; border-radius: 50%; background: var(--c1); animation: pulse 1.5s infinite; display: inline-block; }
 
-  @keyframes pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:.5; transform:scale(.8); } }
+  @background: pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:.5; transform:scale(.8); } }
 
   .hero-title {
     font-family: 'Syne', sans-serif;
@@ -129,7 +124,7 @@
     padding: .8rem 2rem; border-radius: 50px;
     background: var(--grad1); border: none; color: #fff;
     font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: .95rem;
-    cursor: none; transition: all .3s; text-decoration: none;
+    transition: all .3s; text-decoration: none;
     box-shadow: 0 4px 30px rgba(255,60,172,.35);
   }
   .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 40px rgba(255,60,172,.5); }
@@ -138,7 +133,7 @@
     padding: .8rem 2rem; border-radius: 50px;
     background: transparent; border: 1.5px solid var(--border);
     color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 500; font-size: .95rem;
-    cursor: none; transition: all .3s; text-decoration: none;
+    transition: all .3s; text-decoration: none;
     display: flex; align-items: center; gap: .5rem;
   }
   .btn-secondary:hover { border-color: rgba(255,255,255,.3); background: rgba(255,255,255,.05); transform: translateY(-3px); }
@@ -304,8 +299,9 @@
   .page-links { display: flex; gap: .8rem; margin-top: 1rem; }
   .page-link-btn {
     padding: .4rem 1rem; border-radius: 50px; font-size: .8rem; font-weight: 600;
-    text-decoration: none; cursor: none; transition: all .3s;
+    text-decoration: none; transition: all .3s;
     display: flex; align-items: center; gap: .35rem;
+    cursor: pointer;
   }
   .pl-github { background: rgba(255,255,255,.08); border: 1px solid var(--border); color: var(--text); }
   .pl-github:hover { background: rgba(255,255,255,.15); }
@@ -320,8 +316,9 @@
     width: 46px; height: 46px; border-radius: 50%;
     background: var(--dark2); border: 1px solid var(--border);
     color: var(--text); font-size: 1.1rem;
-    cursor: none; display: flex; align-items: center; justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     transition: all .3s;
+    cursor: pointer;
   }
   .book-nav:hover { background: rgba(255,60,172,.15); border-color: var(--c1); color: var(--c1); }
   .book-nav:disabled { opacity: .3; cursor: default; }
@@ -363,8 +360,9 @@
   .project-footer { display: flex; gap: .6rem; flex-wrap: wrap; }
   .p-btn {
     padding: .35rem .85rem; border-radius: 50px; font-size: .78rem; font-weight: 500;
-    text-decoration: none; cursor: none; transition: all .25s;
+    text-decoration: none; transition: all .25s;
     display: inline-flex; align-items: center; gap: .3rem;
+    cursor: pointer;
   }
   .p-gh { background: rgba(255,255,255,.07); border: 1px solid var(--border); color: var(--muted); }
   .p-gh:hover { color: var(--text); background: rgba(255,255,255,.12); }
@@ -385,7 +383,8 @@
   .modal-close {
     position: absolute; top: -2.5rem; right: 0;
     background: none; border: none; color: var(--muted); font-size: 1.5rem;
-    cursor: none; transition: color .2s;
+    transition: color .2s;
+    cursor: pointer;
   }
   .modal-close:hover { color: var(--text); }
   .modal-inner iframe { width: 100%; aspect-ratio: 16/9; border-radius: 12px; border: 1px solid var(--border); }
@@ -444,7 +443,7 @@
     position: relative; animation: popIn .3s cubic-bezier(.34,1.56,.64,1) forwards;
   }
   @keyframes popIn { from { transform: scale(.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-  .cv-close { position: absolute; top: 1rem; right: 1.2rem; background: none; border: none; color: var(--muted); font-size: 1.3rem; cursor: none; }
+  .cv-close { position: absolute; top: 1rem; right: 1.2rem; background: none; border: none; color: var(--muted); font-size: 1.3rem; cursor: pointer; }
   .cv-icon { font-size: 3.5rem; margin-bottom: 1rem; }
   .cv-box h3 { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 700; margin-bottom: .6rem; }
   .cv-box p { color: var(--muted); font-size: .9rem; line-height: 1.7; margin-bottom: 1.8rem; }
@@ -460,8 +459,9 @@
   .cv-submit {
     padding: .8rem; border-radius: 50px; border: none;
     background: var(--grad1); color: #fff; font-family: 'DM Sans', sans-serif;
-    font-weight: 600; font-size: .95rem; cursor: none; transition: all .3s;
+    font-weight: 600; font-size: .95rem; transition: all .3s;
     margin-top: .4rem;
+    cursor: pointer;
   }
   .cv-submit:hover { box-shadow: 0 0 30px rgba(255,60,172,.4); transform: translateY(-2px); }
   .cv-success { display: none; }
@@ -516,10 +516,6 @@
 </head>
 <body>
 
-<!-- CURSOR -->
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
-
 <!-- MOBILE NAV -->
 <div class="mobile-nav" id="mobileNav">
   <a href="#about" onclick="closeMobileNav()">About</a>
@@ -562,7 +558,6 @@
       <span class="grad">Md Swopon Ali</span>
     </h1>
     <p class="hero-desc">
-      <!-- UPDATE: Replace this with your actual bio/title -->
       A passionate developer &amp; creative thinker. I build beautiful digital experiences that blend clean code with vibrant design. Let's create something amazing together.
     </p>
     <div class="hero-btns">
@@ -583,12 +578,10 @@
     </div>
     <div class="floating-badge b2">
       <i class="fa-solid fa-star" style="color:#F7971E;font-size:.85rem"></i>
-      <!-- UPDATE: Change to your GitHub stars / projects count -->
       10+ Projects Built
     </div>
     <div class="floating-badge b3">
       <i class="fa-solid fa-code" style="color:#FF3CAC;font-size:.85rem"></i>
-      <!-- UPDATE: Change to your experience -->
       2+ Years Experience
     </div>
   </div>
@@ -608,7 +601,6 @@
       </div>
       <div class="about-accent-box">
         <span class="big-num">2+</span>
-        <!-- UPDATE: Change years -->
         <span class="small-label">Years of<br>Experience</span>
       </div>
     </div>
@@ -616,20 +608,18 @@
       <div class="section-tag tag-pink">About Me</div>
       <h3>Turning Ideas Into<br>Digital Reality</h3>
       <p>
-        <!-- UPDATE: Replace with your real bio -->
         Hello! I'm Md Swopon Ali, a dedicated developer with a passion for building modern, responsive, and visually stunning web applications. I love solving complex problems with elegant solutions.
       </p>
       <p>
-        <!-- UPDATE: Add more about yourself -->
         When I'm not coding, you'll find me exploring new technologies, contributing to open-source projects, or sharing knowledge with the developer community. I believe great products are built at the intersection of technology and creativity.
       </p>
       <div class="about-stats">
         <div class="stat-item">
-          <span class="stat-num">10+</span><!-- UPDATE -->
+          <span class="stat-num">10+</span>
           <span class="stat-label">Projects</span>
         </div>
         <div class="stat-item">
-          <span class="stat-num">5+</span><!-- UPDATE -->
+          <span class="stat-num">5+</span>
           <span class="stat-label">Technologies</span>
         </div>
         <div class="stat-item">
@@ -651,7 +641,6 @@
   </div>
 
   <div class="skills-grid">
-    <!-- SKILL CATEGORY 1 — UPDATE skills and percentages -->
     <div class="skill-category cat-pink fade-up">
       <span class="cat-icon">🎨</span>
       <div class="cat-title">Frontend Development</div>
@@ -671,7 +660,6 @@
       </div>
     </div>
 
-    <!-- SKILL CATEGORY 2 — UPDATE -->
     <div class="skill-category cat-blue fade-up">
       <span class="cat-icon">⚙️</span>
       <div class="cat-title">Backend Development</div>
@@ -691,7 +679,6 @@
       </div>
     </div>
 
-    <!-- SKILL CATEGORY 3 — UPDATE -->
     <div class="skill-category cat-green fade-up">
       <span class="cat-icon">🗄️</span>
       <div class="cat-title">Database &amp; DevOps</div>
@@ -711,7 +698,6 @@
       </div>
     </div>
 
-    <!-- SKILL CATEGORY 4 — UPDATE -->
     <div class="skill-category cat-amber fade-up">
       <span class="cat-icon">🛠️</span>
       <div class="cat-title">Tools &amp; Others</div>
@@ -786,11 +772,10 @@
   </div>
 
   <div class="social-grid fade-up">
-    <!-- UPDATE all href links with your real profiles -->
     <a href="https://github.com/YOUR_USERNAME" target="_blank" class="social-card sc-github">
       <i class="fa-brands fa-github"></i>
       <span class="social-name">GitHub</span>
-      <span class="social-handle">@YOUR_USERNAME</span><!-- UPDATE -->
+      <span class="social-handle">@YOUR_USERNAME</span>
     </a>
     <a href="https://linkedin.com/in/YOUR_PROFILE" target="_blank" class="social-card sc-linkedin">
       <i class="fa-brands fa-linkedin"></i>
@@ -800,7 +785,7 @@
     <a href="https://twitter.com/YOUR_HANDLE" target="_blank" class="social-card sc-twitter">
       <i class="fa-brands fa-x-twitter"></i>
       <span class="social-name">X / Twitter</span>
-      <span class="social-handle">@YOUR_HANDLE</span><!-- UPDATE -->
+      <span class="social-handle">@YOUR_HANDLE</span>
     </a>
     <a href="https://facebook.com/YOUR_PROFILE" target="_blank" class="social-card sc-fb">
       <i class="fa-brands fa-facebook"></i>
@@ -810,17 +795,17 @@
     <a href="https://instagram.com/YOUR_HANDLE" target="_blank" class="social-card sc-ig">
       <i class="fa-brands fa-instagram"></i>
       <span class="social-name">Instagram</span>
-      <span class="social-handle">@YOUR_HANDLE</span><!-- UPDATE -->
+      <span class="social-handle">@YOUR_HANDLE</span>
     </a>
     <a href="https://youtube.com/@YOUR_CHANNEL" target="_blank" class="social-card sc-yt">
       <i class="fa-brands fa-youtube"></i>
       <span class="social-name">YouTube</span>
-      <span class="social-handle">@YOUR_CHANNEL</span><!-- UPDATE -->
+      <span class="social-handle">@YOUR_CHANNEL</span>
     </a>
     <a href="mailto:youremail@gmail.com" class="social-card sc-email">
       <i class="fa-solid fa-envelope"></i>
       <span class="social-name">Email</span>
-      <span class="social-handle">youremail@gmail.com</span><!-- UPDATE -->
+      <span class="social-handle">youremail@gmail.com</span>
     </a>
   </div>
 </section>
@@ -869,20 +854,17 @@
 
 <script>
 // ============================================================
-// DATA — UPDATE EVERYTHING BELOW WITH YOUR REAL INFO
+// DATA
 // ============================================================
-
-// BOOK / FEATURED WORKS
-// Update title, desc, tags, githubUrl, liveUrl, videoUrl (YouTube embed or '')
 const bookPages = [
   {
     chapter: "Featured Work 01",
     title: "Project Alpha",
     desc: "A full-stack web application with user authentication, real-time database, and a responsive dashboard. Built with React and Node.js.",
     tags: ["React", "Node.js", "MongoDB", "Tailwind"],
-    githubUrl: "https://github.com/YOUR_USERNAME/project-alpha", // UPDATE
-    liveUrl: "https://your-live-site.com",                        // UPDATE or ''
-    videoUrl: "https://www.youtube.com/embed/YOUR_VIDEO_ID"       // UPDATE or ''
+    githubUrl: "https://github.com/YOUR_USERNAME/project-alpha",
+    liveUrl: "https://your-live-site.com",
+    videoUrl: "https://www.youtube.com/embed/YOUR_VIDEO_ID"
   },
   {
     chapter: "Featured Work 02",
@@ -913,8 +895,6 @@ const bookPages = [
   }
 ];
 
-// ALL PROJECTS GRID
-// Add as many as you like — remove videoUrl if no video
 const allProjects = [
   {
     name: "Project Alpha",
@@ -978,9 +958,7 @@ const allProjects = [
   }
 ];
 
-// CV REQUEST — UPDATE your email here
-// The form will open a mailto: link so the request lands in your inbox
-const CV_EMAIL = "youremail@gmail.com"; // UPDATE
+const CV_EMAIL = "youremail@gmail.com";
 
 // ============================================================
 // BOOK FLIP LOGIC
@@ -1085,7 +1063,6 @@ function submitCvRequest() {
   const company = document.getElementById('cvCompany').value.trim();
   if (!name || !email) { alert('Please fill in your name and email.'); return; }
 
-  // Opens mailto — request lands in YOUR inbox
   const subject = encodeURIComponent(`CV Request from ${name}`);
   const body = encodeURIComponent(`Hello Md Swopon Ali,\n\nMy name is ${name}.\nEmail: ${email}\nCompany/Purpose: ${company}\n\nI would like to request a copy of your CV.\n\nThank you.`);
   window.location.href = `mailto:${CV_EMAIL}?subject=${subject}&body=${body}`;
@@ -1095,24 +1072,6 @@ function submitCvRequest() {
 }
 document.getElementById('cvModal').addEventListener('click', function(e) {
   if (e.target === this) closeCvModal();
-});
-
-// ============================================================
-// CUSTOM CURSOR
-// ============================================================
-const cursor = document.getElementById('cursor');
-const ring = document.getElementById('cursorRing');
-document.addEventListener('mousemove', e => {
-  cursor.style.left = e.clientX + 'px';
-  cursor.style.top = e.clientY + 'px';
-  setTimeout(() => {
-    ring.style.left = e.clientX + 'px';
-    ring.style.top = e.clientY + 'px';
-  }, 60);
-});
-document.querySelectorAll('a,button').forEach(el => {
-  el.addEventListener('mouseenter', () => { cursor.style.transform = 'translate(-50%,-50%) scale(2)'; ring.style.transform = 'translate(-50%,-50%) scale(1.5)'; });
-  el.addEventListener('mouseleave', () => { cursor.style.transform = 'translate(-50%,-50%) scale(1)'; ring.style.transform = 'translate(-50%,-50%) scale(1)'; });
 });
 
 // ============================================================
@@ -1145,7 +1104,6 @@ const observer = new IntersectionObserver(entries => {
 
 document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-// SKILL BAR ANIMATION
 const barObserver = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
