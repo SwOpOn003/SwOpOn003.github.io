@@ -68,22 +68,10 @@ nav.scrolled {
 }
 
 /* Logo hover করলে হালকা grow করবে */
-.nav-logo:hover {
-  transform: scale(1.05);
-}
-
-.nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
-
-.nav-links a { 
-  color: var(--muted); 
-  text-decoration: none; 
-  font-size: 0.95rem; 
-  font-weight: 500; 
-  letter-spacing: 0.05em; 
-  position: relative; 
-  padding: 0.5rem 0;
-  display: inline-block;
-  transition: color 0.3s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+.nav-logo:hover i {
+  transform: scale(1.18) rotate(3deg);
+  filter: drop-shadow(0 0 12px var(--c1));
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 /* 1. কার্সার নিলে টেক্সট Grow করবে এবং উজ্জ্বল হবে */
